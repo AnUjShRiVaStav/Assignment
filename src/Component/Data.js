@@ -18,7 +18,7 @@ export default function Data(){
          .then( (res) => res.json())
          .then( (res) => {
            setSearch(res);
-           console.log(res);
+           //  console.log(res);
          })
         
   },[]);
