@@ -18,7 +18,7 @@ export default function Data(){
          .then( (res) => res.json())
          .then( (res) => {
            setSearch(res);
-           //  console.log(res);
+          //  console.log(res);
          })
         
   },[]);
@@ -32,14 +32,21 @@ export default function Data(){
 <Container>
   <Row className="justify-content-md-center">
     
-    <Col xs lg="2"> 
+    <Col  xs lg="2"> 
           <div className="container"> 
-          <ListGroup.Item style= {{width:'110%',marginTop:'40px',textAlign:'center'}}>
+          <ListGroup.Item style= {{width:'110%', paddingBottom:'420px',marginTop:'40px',textAlign:'center'}}>
           User
-          {posts.map(val => (
+         
+   
+          {posts.map((val,key) =>{ 
+            if(key < 4){
+            return(
             <ul className="container" style = {{marginTop:'20px'}} >user Id: {val.id} </ul>
             
-          ))}
+          )
+            }
+               })}
+
                   
           </ListGroup.Item>
           </div>
@@ -56,12 +63,20 @@ export default function Data(){
 ): (' ')}
 
      
-   {posts.map(val => (
-   <ListGroup.Item style = { {width:'100%',marginTop:'30px'}}>{val.body} {val.title}  </ListGroup.Item>
-    
-   ))}
-   
-   </ListGroup.Item>
+   {posts.map((val,key) => {
+     if (key < 4) {
+       return(
+        <ListGroup.Item  style = { {width:'100%',marginTop:'30px', marginBottom:'40px'}}>
+
+<h6>{val.title}</h6>
+ {val.body}    
+ </ListGroup.Item>
+       )} 
+       })
+       }
+
+
+       </ListGroup.Item>
    </Col>
   </Row>
                   
@@ -69,3 +84,7 @@ export default function Data(){
         </div>
     );
 }
+      
+   
+   
+  
