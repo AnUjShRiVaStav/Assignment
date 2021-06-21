@@ -10,8 +10,9 @@ export default function Data(){
 
 
     const[posts, setSearch] = useState([]);
+    const [search, setSearchInput] = useState('');
     
-    const URL = 'https://jsonplaceholder.typicode.com/posts'
+    const URL = `https://jsonplaceholder.typicode.com/posts`
 
         useEffect ( () => {
          fetch(URL)
@@ -20,10 +21,14 @@ export default function Data(){
            setSearch(res);
           //  console.log(res);
          })
-        
+         
   },[]);
 
- 
+const handleInput = ((e) => {
+  setSearchInput(e.target.value)
+})
+
+
     return(
         
       
@@ -35,7 +40,7 @@ export default function Data(){
     <Col  xs lg="2"> 
           <div className="container"> 
           <ListGroup.Item style= {{width:'110%', paddingBottom:'420px',marginTop:'40px',textAlign:'center'}}>
-          User
+          User 
          
    
           {posts.map((val,key) =>{ 
@@ -55,15 +60,25 @@ export default function Data(){
           <Col> 
        <ListGroup.Item  style = {{marginTop:'40px',marginLeft:'60px'}}>
 
-<input placeholder = 'Search by title...' 
+<input placeholder = 'Search by title...' type ='text'
+   onChange = {handleInput}
+
  style={{marginLeft:'2px',marginTop:'10px'}} />
  {posts.length > 0 ? ( 
 
-<div style={{marginLeft:'88%',marginbottom:'15px'}} > {posts.length} posts</div>
+<div style={{marginLeft:'88%',marginbottom:'15px'}} >{posts.length} posts</div>
 ): (' ')}
 
      
-   {posts.map((val,key) => {
+
+
+{posts.filter((val)=> {
+  if(search=='') {
+    return val
+  }else if (val.title.toLowerCase().includes(search.toLowerCase())){
+    return val
+  }
+}).map((val,key) => {
      if (key < 4) {
        return(
         <ListGroup.Item  style = { {width:'100%',marginTop:'30px', marginBottom:'40px'}}>
@@ -74,7 +89,6 @@ export default function Data(){
        )} 
        })
        }
-
 
        </ListGroup.Item>
    </Col>
